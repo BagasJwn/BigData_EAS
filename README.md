@@ -48,7 +48,7 @@ Pada tugas eas ini, akan dilakukan analisa pada 4 datasets time series, antara l
 
 Dimana workflow yang dibuat adalah sebagai berikut :
 
-![](github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1.PNG)
+![](github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1.PNG)</br>
 
 Pada workflow ini, create env local akan dibuat sebagai spark, dimana dihubungkan ke tiap metanode, tiap metanode berisi workflow yang sama, dengan konfigurasi yang berbeda, workflow dari tiap node adalah sebagai berikut :
 
