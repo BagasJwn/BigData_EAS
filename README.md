@@ -1,37 +1,5 @@
 # BigData_EAS
 
-## Menu Cepat
-1. [Kebutuhan](#1-kebutuhan)
-2. [Pendahuluan](#2-pendahuluan)
-3. [Daily Minimum Temperature](#3-daily-minimum-temperature)
-	- [Business Understanding](#31-business-understanding)
-	- [Data Understanding](#32-data-understanding)
-	- [Data Preparation](#33-data-preparation)
-	- [Modeling](#34-modeling)
-	- [Evaluation](#35-evaluation)
-	- [Deployment](#36-deployment)
-4. [Electric Production](#4-electric-production)
-	- [Business Understanding](#41-business-understanding)
-	- [Data Understanding](#42-data-understanding)
-	- [Data Preparation](#43-data-preparation)
-	- [Modeling](#44-modeling)
-	- [Evaluation](#45-evaluation)
-	- [Deployment](#46-deployment)
-5. [Monthly Beer](#5-monthly-beer)
-	- [Business Understanding](#51-business-understanding)
-	- [Data Understanding](#52-data-understanding)
-	- [Data Preparation](#53-data-preparation)
-	- [Modeling](#54-modeling)
-	- [Evaluation](#55-evaluation)
-	- [Deployment](#56-deployment)
-6. [Sales Shampoo](#6-sales-shampoo)
-	- [Business Understanding](#61-business-understanding)
-	- [Data Understanding](#62-data-understanding)
-	- [Data Preparation](#63-data-preparation)
-	- [Modeling](#64-modeling)
-	- [Evaluation](#65-evaluation)
-	- [Deployment](#66-deployment)
-7. [Referensi](#7-referensi)
 
 ## 1. Kebutuhan
 - KNIME
