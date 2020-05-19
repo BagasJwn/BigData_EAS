@@ -1,5 +1,4 @@
-# Tugas EAS dengan Menggunakan 4 Datasets
-Tugas EAS ini berisi analisa mengenai 4 datasets time series yang berbeda.
+# BigData_EAS
 
 ## Menu Cepat
 1. [Kebutuhan](#1-kebutuhan)
