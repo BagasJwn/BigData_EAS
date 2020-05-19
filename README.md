@@ -48,11 +48,11 @@ Pada tugas eas ini, akan dilakukan analisa pada 4 datasets time series, antara l
 
 Dimana workflow yang dibuat adalah sebagai berikut :
 
-![](/tugas_8_eas/screenshoot/1.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1.PNG)
 
 Pada workflow ini, create env local akan dibuat sebagai spark, dimana dihubungkan ke tiap metanode, tiap metanode berisi workflow yang sama, dengan konfigurasi yang berbeda, workflow dari tiap node adalah sebagai berikut :
 
-![](/tugas_8_eas/screenshoot/2.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2.PNG)
 
 workflow diatas berisi pada setiap node, yang akan dijelaskan pada tahapan berikutnya, penjelasan disesuaikan berdasarkan data yang dianalisa, dikarenakan data yang di analisa berbeda.
 
@@ -60,7 +60,7 @@ workflow diatas berisi pada setiap node, yang akan dijelaskan pada tahapan berik
 ## 3. Daily Minimum Temperature
 Workflow yang akan dijalankan pada tugas ini adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/1/1.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/1.PNG)
 
 Workflow ini berisi 3 meta node diantara lain ``Load Data Node``, ``Extract date-time attributes``, ``Aggregation and time series``.
 
@@ -84,44 +84,44 @@ Terdapat 3 kolom data dengan :
 
 
 ### 3.3 Data Preparation
-![](/tugas_8_eas/screenshoot/1/2.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/2.PNG)
 
 Pada data preparation kita akan mempersiapkan data sets yang telah ditambahkan id dengan menggunakan database, data sudah berada pada folder /files/ yang disiapkan dalam bentuk spark nantinya.
 Node yang dijalankan pertama kali adalah file manger, yaitu akan dilakukan load data yang berasa dari knime, kemudian membuat local env yang kemudian akan jalankan Meta Node ``Load Data``.
 
-![](/tugas_8_eas/screenshoot/1/3.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/3.PNG)
 
-![](/tugas_8_eas/screenshoot/1/4.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/4.PNG)
 
 Meta node ``Load Data`` berisi 2 node, node ini akan melakukan pembuatan table pada hive serta melakukan load table yang telah dibuat, hasil table yang telah di buat adalah sebagai berikut.
 
-![](/tugas_8_eas/screenshoot/1/5.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/5.PNG)
 
 Daily Temp Minimum akan disimpan pada hive dengan nama table daily_temperature.
 
-![](/tugas_8_eas/screenshoot/1/6.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/6.PNG)
 
 Selanjutnya yang dilakukan adalah merubah table hive tadi menjadi spark, dengan menjalankan node ``Hive to Spark``, hasil dari table spark tersebut adalah
 
-![](/tugas_8_eas/screenshoot/1/7.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/7.PNG)
 
 
 ### 3.4 Modeling
 Selanjutnya adalah melakukan modeling untuk merubah isi table yang ada, yang nantinya akan dilakukan pemecahan data untuk dilakukan analisa, workflow yang dijalankan adalah
 
-![](/tugas_8_eas/screenshoot/1/10.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/10.PNG)
 
 Pada workflow ini kita akan menjalankan meta node ``Extract time`` node ini akan melakukan pemisahan data yang nantinya akan di lakukan analisa, isi dari node ``Extract time`` ini adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/1/8.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/8.PNG)
 
 Pada node ini, pertama kita akan merubah date yang berbentuk string kedalam bentuk Date, node yang dijalankan adalah node ``Spark SQL Query``
 
-![](/tugas_8_eas/screenshoot/1/9.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/9.PNG)
 
 Pada query ini melakukan select data yang berada pada table, yang kemudian data date dilakukan perubahan dari string menjadi bentuk date, sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/1/11.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/11.PNG)
 
 Pada kolom newdate, hasil perubahan -1 hari dari hari aslinya, hal ini terjadi karena sewaktu perubahan dilakukan konversi dalam bentuk timestamp, tapi tidak akan terpengaruh dengan hasil yang bulan, tahun, dan harinya. Selanjutnya adalah melakukan ekstrasi waktu baru untuk mendapatkan tahun, bulan, minggu, hari, dengan menjalankan ``Spark SQL Query``, dengan query yang berisi
 
@@ -140,7 +140,7 @@ FROM #table# t1
 
 Pada query ini melakukan select year, month, week, dayofweek yang diambil dari newdate (date yang telah diekstrasi pada node sebelumnya), sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/1/12.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/12.PNG)
 
 Selanjutnya adalah melakukan select baru dengan menjalankan query
 
@@ -156,47 +156,47 @@ from #table#
 
 Query ini akan melakukan pembuatan column baru, dengan value nya diambil dari dayOfWeek sebelumnya dengan kondisi dimana Saturday dan Sunday akan di isi dengan WE sedangkan hari lain di isi dengan BD, sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/1/13.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/13.PNG)
 
 Semua node telah dijalankan, hasil column nantinya akan dilakukan analisa pada meta node ``Aggregation and time series``, meta node ini berisi sejumlah node seperti berikut
 
-![](/tugas_8_eas/screenshoot/1/14.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/14.PNG)
 
 Pada node ini, akan dilakukan analisa dengan menghitung rata rata dari data yang dianalisa, saya akan menjelaskan beberapa node, dikarenakan node yang lain melakukan hal yang sama, hanya berbeda pada column yang di analisa.
 
-![](/tugas_8_eas/screenshoot/1/15.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/15.PNG)
 
 Pada node diatas dilakukan group berdasarkan ``total usage`` dan ``usage by year``, akan melakukan penghitungan berdasarkan temp seperti pada gambar
 
-![](/tugas_8_eas/screenshoot/1/16.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/16.PNG)
 
-![](/tugas_8_eas/screenshoot/1/17.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/17.PNG)
 
 Sedangkan ``usage by month``
 
-![](/tugas_8_eas/screenshoot/1/18.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/18.PNG)
 
-![](/tugas_8_eas/screenshoot/1/19.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/19.PNG)
 
 Selanjutnya pada ``avg by month`` dilakukan penghitungan rata-rata berdasarkan bulan, dengan group by tahun
 
-![](/tugas_8_eas/screenshoot/1/20.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/20.PNG)
 
 Hasil dari rata-rata adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/1/21.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/21.PNG)
 
 Selanjutnya adalah melakukan column rename, pada column rata-rata, sesuai nama yang kita mau
 
-![](/tugas_8_eas/screenshoot/1/22.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/22.PNG)
 
 Selanjutnya dilakukan join pada data sebelumnya, sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/1/23.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/23.PNG)
 
 Data yang di join adalah data yang berasal dari ``usage by month`` dan ``total usage``, selanjutnya adalah lakukan hal yang sama pada node lainnya, setelah melakukan analisa rata-rata lakukan join pada table tersebut, sehingga hasil akhir dari table yang telah selesai di proses adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/1/24.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/24.PNG)
 
 Data hasil akhir didapat dari data yang telah dipisah sebelumnya yang kemudian dilakukan analisa berdasarkan kebutuhan, inti dari metanode ini adalah untuk mendapatkan analisa berdasarkan data yang telah didapatkan pada metanode sebelumnya.
 
@@ -204,36 +204,36 @@ Data hasil akhir didapat dari data yang telah dipisah sebelumnya yang kemudian d
 ### 3.5 Evaluation
 Pada evaluation akan dijalankan workflow
 
-![](/tugas_8_eas/screenshoot/2/25.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/25.PNG)
 
 Pada tahap ini dilakukan select semua data dari node sebelumnya.
 
-![](/tugas_8_eas/screenshoot/2/26.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/26.PNG)
 
 Hasilnya adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/1/27.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/27.PNG)
 
 Selanjutnya adalah melakukan Plot K-Mean, PCA, dan memiliki hasil sebagai berikut
 
-![](/tugas_8_eas/screenshoot/1/28.PNG)
-![](/tugas_8_eas/screenshoot/1/29.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/28.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/29.PNG)
 
 
 ### 3.6 Deployment
 Selanjutnya pada tahap deployment kita akan menjalankan workflow
 
-![](/tugas_8_eas/screenshoot/1/30.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/30.PNG)
 
 Pada tahap ini dilakukan perubahan data dari spark kembali mejadi hive serta menympan spark kedalam HDFS dalam bentuk parquet, hasil dari data tersebut adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/1/31.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot1/31.PNG)
 
 
 ## 4. Electric Production
 Workflow yang akan dijalankan pada tugas ini adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/2/1.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/1.PNG)
 
 Workflow ini berisi 3 meta node diantara lain ``Load Data Node``, ``Extract date-time attributes``, ``Aggregation and time series``.
 
@@ -256,44 +256,44 @@ Terdapat 2 kolom data dengan :
 
 
 ### 4.3 Data Preparation
-![](/tugas_8_eas/screenshoot/2/2.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/2.PNG)
 
 Pada data preparation kita akan mempersiapkan data sets yang telah ditambahkan id dengan menggunakan database, data sudah berada pada folder /files/ yang disiapkan dalam bentuk spark nantinya.
 Node yang dijalankan pertama kali adalah file manger, yaitu akan dilakukan load data yang berasa dari knime, kemudian membuat local env yang kemudian akan jalankan Meta Node ``Load Data``.
 
-![](/tugas_8_eas/screenshoot/2/3.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/3.PNG)
 
-![](/tugas_8_eas/screenshoot/2/4.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/4.PNG)
 
 Meta node ``Load Data`` berisi 2 node, node ini akan melakukan pembuatan table pada hive serta melakukan load table yang telah dibuat, hasil table yang telah di buat adalah sebagai berikut.
 
-![](/tugas_8_eas/screenshoot/2/5.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/5.PNG)
 
 Electric Production akan disimpan pada hive dengan nama table electric_production.
 
-![](/tugas_8_eas/screenshoot/2/6.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/6.PNG)
 
 Selanjutnya yang dilakukan adalah merubah table hive tadi menjadi spark, dengan menjalankan node ``Hive to Spark``, hasil dari table spark tersebut adalah
 
-![](/tugas_8_eas/screenshoot/2/7.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/7.PNG)
 
 
 ### 4.4 Modeling
 Selanjutnya adalah melakukan modeling untuk merubah isi table yang ada, yang nantinya akan dilakukan pemecahan data untuk dilakukan analisa, workflow yang dijalankan adalah
 
-![](/tugas_8_eas/screenshoot/2/10.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/10.PNG)
 
 Pada workflow ini kita akan menjalankan meta node ``Extract time`` node ini akan melakukan pemisahan data yang nantinya akan di lakukan analisa, isi dari node ``Extract time`` ini adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/2/8.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/8.PNG)
 
 Pada node ini, pertama kita akan merubah date yang berbentuk string kedalam bentuk Date, node yang dijalankan adalah node ``Spark SQL Query``
 
-![](/tugas_8_eas/screenshoot/2/9.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/9.PNG)
 
 Pada query ini melakukan select data yang berada pada table, yang kemudian data date dilakukan perubahan dari string menjadi bentuk date, sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/2/11.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/11.PNG)
 
 Pada kolom newdate, hasil perubahan -1 hari dari hari aslinya, hal ini terjadi karena sewaktu perubahan dilakukan konversi dalam bentuk timestamp, tapi tidak akan terpengaruh dengan hasil yang bulan, tahun, dan harinya. Selanjutnya adalah melakukan ekstrasi waktu baru untuk mendapatkan tahun, bulan, minggu, hari, dengan menjalankan ``Spark SQL Query``, dengan query yang berisi
 
@@ -312,7 +312,7 @@ FROM #table# t1
 
 Pada query ini melakukan select year, month, week, dayofweek yang diambil dari newdate (date yang telah diekstrasi pada node sebelumnya), sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/2/12.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/12.PNG)
 
 Selanjutnya adalah melakukan select baru dengan menjalankan query
 
@@ -328,47 +328,47 @@ from #table#
 
 Query ini akan melakukan pembuatan column baru, dengan value nya diambil dari dayOfWeek sebelumnya dengan kondisi dimana Saturday dan Sunday akan di isi dengan WE sedangkan hari lain di isi dengan BD, sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/2/13.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/13.PNG)
 
 Semua node telah dijalankan, hasil column nantinya akan dilakukan analisa pada meta node ``Aggregation and time series``, meta node ini berisi sejumlah node seperti berikut
 
-![](/tugas_8_eas/screenshoot/2/14.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/14.PNG)
 
 Pada node ini, akan dilakukan analisa dengan menghitung rata rata dari data yang dianalisa, saya akan menjelaskan beberapa node, dikarenakan node yang lain melakukan hal yang sama, hanya berbeda pada column yang di analisa.
 
-![](/tugas_8_eas/screenshoot/2/15.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/15.PNG)
 
 Pada node diatas dilakukan group berdasarkan ``total usage`` dan ``usage by year``, akan melakukan penghitungan berdasarkan temp seperti pada gambar
 
-![](/tugas_8_eas/screenshoot/2/16.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/16.PNG)
 
-![](/tugas_8_eas/screenshoot/2/17.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/17.PNG)
 
 Sedangkan ``usage by month``
 
-![](/tugas_8_eas/screenshoot/2/18.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/18.PNG)
 
-![](/tugas_8_eas/screenshoot/2/19.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/19.PNG)
 
 Selanjutnya pada ``avg by month`` dilakukan penghitungan rata-rata berdasarkan bulan, dengan group by tahun
 
-![](/tugas_8_eas/screenshoot/2/20.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/20.PNG)
 
 Hasil dari rata-rata adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/2/21.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/21.PNG)
 
 Selanjutnya adalah melakukan column rename, pada column rata-rata, sesuai nama yang kita mau
 
-![](/tugas_8_eas/screenshoot/2/22.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/22.PNG)
 
 Selanjutnya dilakukan join pada data sebelumnya, sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/2/23.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/23.PNG)
 
 Data yang di join adalah data yang berasal dari ``usage by month`` dan ``total usage``, selanjutnya adalah lakukan hal yang sama pada node lainnya, setelah melakukan analisa rata-rata lakukan join pada table tersebut, sehingga hasil akhir dari table yang telah selesai di proses adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/2/24.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/24.PNG)
 
 Data hasil akhir didapat dari data yang telah dipisah sebelumnya yang kemudian dilakukan analisa berdasarkan kebutuhan, inti dari metanode ini adalah untuk mendapatkan analisa berdasarkan data yang telah didapatkan pada metanode sebelumnya.
 
@@ -376,36 +376,36 @@ Data hasil akhir didapat dari data yang telah dipisah sebelumnya yang kemudian d
 ### 4.5 Evaluation
 Pada evaluation akan dijalankan workflow
 
-![](/tugas_8_eas/screenshoot/2/25.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/25.PNG)
 
 Pada tahap ini dilakukan select semua data dari node sebelumnya.
 
-![](/tugas_8_eas/screenshoot/2/26.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/26.PNG)
 
 Hasilnya adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/2/27.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/27.PNG)
 
 Selanjutnya adalah melakukan Plot K-Mean, PCA, dan memiliki hasil sebagai berikut
 
-![](/tugas_8_eas/screenshoot/2/28.PNG)
-![](/tugas_8_eas/screenshoot/2/29.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/28.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/29.PNG)
 
 
 ### 4.6 Deployment
 Selanjutnya pada tahap deployment kita akan menjalankan workflow
 
-![](/tugas_8_eas/screenshoot/2/30.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/30.PNG)
 
 Pada tahap ini dilakukan perubahan data dari spark kembali mejadi hive serta menympan spark kedalam HDFS dalam bentuk parquet, hasil dari data tersebut adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/2/31.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot2/31.PNG)
 
 
 ## 5. Monthly Beer
 Workflow yang akan dijalankan pada tugas ini adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/3/1.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/1.PNG)
 
 Workflow ini berisi 3 meta node diantara lain ``Load Data Node``, ``Extract date-time attributes``, ``Aggregation and time series``.
 
@@ -425,80 +425,80 @@ Terdapat 2 kolom data dengan :
 
 
 ### 5.3 Data Preparation
-![](/tugas_8_eas/screenshoot/3/2.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/2.PNG)
 
 Pada data preparation kita akan mempersiapkan data sets yang telah ditambahkan id dengan menggunakan database, data sudah berada pada folder /files/ yang disiapkan dalam bentuk spark nantinya.
 Node yang dijalankan pertama kali adalah file manger, yaitu akan dilakukan load data yang berasa dari knime, kemudian membuat local env yang kemudian akan jalankan Meta Node ``Load Data``.
 
-![](/tugas_8_eas/screenshoot/3/3.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/3.PNG)
 
-![](/tugas_8_eas/screenshoot/3/4.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/4.PNG)
 
 Meta node ``Load Data`` berisi 2 node, node ini akan melakukan pembuatan table pada hive serta melakukan load table yang telah dibuat, hasil table yang telah di buat adalah sebagai berikut.
 
-![](/tugas_8_eas/screenshoot/3/5.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/5.PNG)
 
 Monthly Beer akan disimpan pada hive dengan nama table monthly_beer.
 
-![](/tugas_8_eas/screenshoot/3/6.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/6.PNG)
 
 Selanjutnya yang dilakukan adalah merubah table hive tadi menjadi spark, dengan menjalankan node ``Hive to Spark``, hasil dari table spark tersebut adalah
 
-![](/tugas_8_eas/screenshoot/3/7.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/7.PNG)
 
 
 ### 5.4 Modeling
 Selanjutnya adalah melakukan modeling untuk merubah isi table yang ada, yang nantinya akan dilakukan pemecahan data untuk dilakukan analisa, workflow yang dijalankan adalah
 
-![](/tugas_8_eas/screenshoot/3/10.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/10.PNG)
 
 Pada workflow ini kita akan menjalankan meta node ``Extract time`` node ini akan melakukan pemisahan data yang nantinya akan di lakukan analisa, isi dari node ``Extract time`` ini adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/3/8.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/8.PNG)
 
 Pada node ini, pertama kita akan merubah date yang berbentuk string kedalam bentuk Date, node yang dijalankan adalah node ``Spark SQL Query``
 
-![](/tugas_8_eas/screenshoot/3/9.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/9.PNG)
 
 Pada query ini melakukan select year, month yang diambil dari kolom month, sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/3/11.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/11.PNG)
 
 Semua node telah dijalankan, hasil column nantinya akan dilakukan analisa pada meta node ``Aggregation and time series``, meta node ini berisi sejumlah node seperti berikut
 
-![](/tugas_8_eas/screenshoot/3/12.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/12.PNG)
 
 Pada node ini, akan dilakukan analisa dengan menghitung rata rata dari data yang dianalis.
 
-![](/tugas_8_eas/screenshoot/3/14.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/14.PNG)
 
 Pada node diatas dilakukan group berdasarkan ``total usage`` dan ``usage by year``, akan melakukan penghitungan berdasarkan temp seperti pada gambar
 
-![](/tugas_8_eas/screenshoot/3/15.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/15.PNG)
 
-![](/tugas_8_eas/screenshoot/3/16.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/16.PNG)
 
 Sedangkan ``usage by month``
 
-![](/tugas_8_eas/screenshoot/3/17.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/17.PNG)
 
-![](/tugas_8_eas/screenshoot/3/18.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/18.PNG)
 
 Selanjutnya pada ``avg by month`` dilakukan penghitungan rata-rata berdasarkan bulan, dengan group by tahun
 
-![](/tugas_8_eas/screenshoot/3/19.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/19.PNG)
 
 Hasil dari rata-rata adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/3/20.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/20.PNG)
 
 Selanjutnya adalah melakukan column rename, pada column rata-rata, sesuai nama yang kita mau
 
-![](/tugas_8_eas/screenshoot/3/21.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/21.PNG)
 
 Selanjutnya dilakukan join pada data sebelumnya, sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/3/22.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/22.PNG)
 
 Data yang di join adalah data yang berasal dari ``usage by month`` dan ``total usage``, data didapat dari data yang telah dipisah sebelumnya yang kemudian dilakukan analisa berdasarkan kebutuhan, inti dari metanode ini adalah untuk mendapatkan analisa berdasarkan data yang telah didapatkan pada metanode sebelumnya.
 
@@ -506,36 +506,36 @@ Data yang di join adalah data yang berasal dari ``usage by month`` dan ``total u
 ### 5.5 Evaluation
 Pada evaluation akan dijalankan workflow
 
-![](/tugas_8_eas/screenshoot/3/23.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/23.PNG)
 
 Pada tahap ini dilakukan select semua data dari node sebelumnya.
 
-![](/tugas_8_eas/screenshoot/3/24.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/24.PNG)
 
 Hasilnya adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/3/25.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/25.PNG)
 
 Selanjutnya adalah melakukan Plot K-Mean, PCA, dan memiliki hasil sebagai berikut
 
-![](/tugas_8_eas/screenshoot/3/26.PNG)
-![](/tugas_8_eas/screenshoot/3/27.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/26.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/27.PNG)
 
 
 ### 5.6 Deployment
 Selanjutnya pada tahap deployment kita akan menjalankan workflow
 
-![](/tugas_8_eas/screenshoot/3/28.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/28.PNG)
 
 Pada tahap ini dilakukan perubahan data dari spark kembali mejadi hive serta menympan spark kedalam HDFS dalam bentuk parquet, hasil dari data tersebut adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/3/29.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot3/29.PNG)
 
 
 ## 6. Sales Shampoo
 Workflow yang akan dijalankan pada tugas ini adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/4/1.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/1.PNG)
 
 Workflow ini berisi 3 meta node diantara lain ``Load Data Node``, ``Extract date-time attributes``, ``Aggregation and time series``.
 
@@ -555,80 +555,80 @@ Terdapat 2 kolom data dengan :
 
 
 ### 6.3 Data Preparation
-![](/tugas_8_eas/screenshoot/4/2.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/2.PNG)
 
 Pada data preparation kita akan mempersiapkan data sets yang telah ditambahkan id dengan menggunakan database, data sudah berada pada folder /files/ yang disiapkan dalam bentuk spark nantinya.
 Node yang dijalankan pertama kali adalah file manger, yaitu akan dilakukan load data yang berasa dari knime, kemudian membuat local env yang kemudian akan jalankan Meta Node ``Load Data``.
 
-![](/tugas_8_eas/screenshoot/4/3.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/3.PNG)
 
-![](/tugas_8_eas/screenshoot/4/4.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/4.PNG)
 
 Meta node ``Load Data`` berisi 2 node, node ini akan melakukan pembuatan table pada hive serta melakukan load table yang telah dibuat, hasil table yang telah di buat adalah sebagai berikut.
 
-![](/tugas_8_eas/screenshoot/4/5.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/5.PNG)
 
 Monthly Beer akan disimpan pada hive dengan nama table sales_shampoo.
 
-![](/tugas_8_eas/screenshoot/4/6.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/6.PNG)
 
 Selanjutnya yang dilakukan adalah merubah table hive tadi menjadi spark, dengan menjalankan node ``Hive to Spark``, hasil dari table spark tersebut adalah
 
-![](/tugas_8_eas/screenshoot/4/7.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/7.PNG)
 
 
 ### 6.4 Modeling
 Selanjutnya adalah melakukan modeling untuk merubah isi table yang ada, yang nantinya akan dilakukan pemecahan data untuk dilakukan analisa, workflow yang dijalankan adalah
 
-![](/tugas_8_eas/screenshoot/4/10.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/10.PNG)
 
 Pada workflow ini kita akan menjalankan meta node ``Extract time`` node ini akan melakukan pemisahan data yang nantinya akan di lakukan analisa, isi dari node ``Extract time`` ini adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/4/8.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/8.PNG)
 
 Pada node ini, pertama kita akan merubah date yang berbentuk string kedalam bentuk Date, node yang dijalankan adalah node ``Spark SQL Query``
 
-![](/tugas_8_eas/screenshoot/4/9.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/9.PNG)
 
 Pada query ini melakukan select year, month yang diambil dari kolom month, sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/4/11.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/11.PNG)
 
 Semua node telah dijalankan, hasil column nantinya akan dilakukan analisa pada meta node ``Aggregation and time series``, meta node ini berisi sejumlah node seperti berikut
 
-![](/tugas_8_eas/screenshoot/4/12.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/12.PNG)
 
 Pada node ini, akan dilakukan analisa dengan menghitung rata rata dari data yang dianalis.
 
-![](/tugas_8_eas/screenshoot/4/14.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/14.PNG)
 
 Pada node diatas dilakukan group berdasarkan ``total usage`` dan ``usage by year``, akan melakukan penghitungan berdasarkan temp seperti pada gambar
 
-![](/tugas_8_eas/screenshoot/4/15.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/15.PNG)
 
-![](/tugas_8_eas/screenshoot/4/16.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/16.PNG)
 
 Sedangkan ``usage by month``
 
-![](/tugas_8_eas/screenshoot/4/17.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/17.PNG)
 
-![](/tugas_8_eas/screenshoot/4/18.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/18.PNG)
 
 Selanjutnya pada ``avg by month`` dilakukan penghitungan rata-rata berdasarkan day, dengan group by bulan
 
-![](/tugas_8_eas/screenshoot/4/19.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/19.PNG)
 
 Hasil dari rata-rata adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/4/20.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/20.PNG)
 
 Selanjutnya adalah melakukan column rename, pada column rata-rata, sesuai nama yang kita mau
 
-![](/tugas_8_eas/screenshoot/4/21.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/21.PNG)
 
 Selanjutnya dilakukan join pada data sebelumnya, sehingga menghasilkan
 
-![](/tugas_8_eas/screenshoot/4/22.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/22.PNG)
 
 Data yang di join adalah data yang berasal dari ``usage by month`` dan ``total usage``, data didapat dari data yang telah dipisah sebelumnya yang kemudian dilakukan analisa berdasarkan kebutuhan, inti dari metanode ini adalah untuk mendapatkan analisa berdasarkan data yang telah didapatkan pada metanode sebelumnya.
 
@@ -636,30 +636,30 @@ Data yang di join adalah data yang berasal dari ``usage by month`` dan ``total u
 ### 6.5 Evaluation
 Pada evaluation akan dijalankan workflow
 
-![](/tugas_8_eas/screenshoot/4/23.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/23.PNG)
 
 Pada tahap ini dilakukan select semua data dari node sebelumnya.
 
-![](/tugas_8_eas/screenshoot/4/24.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/24.PNG)
 
 Hasilnya adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/4/25.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/25.PNG)
 
 Selanjutnya adalah melakukan Plot K-Mean, PCA, dan memiliki hasil sebagai berikut
 
-![](/tugas_8_eas/screenshoot/4/26.PNG)
-![](/tugas_8_eas/screenshoot/4/27.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/26.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/27.PNG)
 
 
 ### 6.6 Deployment
 Selanjutnya pada tahap deployment kita akan menjalankan workflow
 
-![](/tugas_8_eas/screenshoot/4/28.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/28.PNG)
 
 Pada tahap ini dilakukan perubahan data dari spark kembali mejadi hive serta menympan spark kedalam HDFS dalam bentuk parquet, hasil dari data tersebut adalah sebagai berikut
 
-![](/tugas_8_eas/screenshoot/4/29.PNG)
+![](/BagasJwn/BigData_EAS/tree/master/screenshoot4/29.PNG)
 
 
 ## 7. Referensi                                                                
